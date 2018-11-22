@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+ 
+<configuration>
+  <property>
+    <name>some.test.property</name>
+    <value>this.is.the.default.value</value>
+    <description>This is a kool description.</description>
+ </property>
+   <property>
+    <name>some.test.varbyembace</name>
+    <value>this.is.the.some.test.varbyembace value</value>
+    <description>This is a kool description.</description>
+ </property>
+</configuration>

@@ -1,0 +1,23 @@
+{
+	"folders": [
+		{
+			"path": "server-lib-common"
+		},
+		{
+			"path": "stack-hooks"
+		},
+		{
+			"path": "agent-lib"
+		},
+		{
+			"path": "stack-common-services"
+		},
+		{
+			"path": "server-resouce_management"
+		},
+		{
+			"path": "stacks-root"
+		}
+	],
+	"settings": {}
+}

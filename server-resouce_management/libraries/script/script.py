@@ -286,6 +286,7 @@ class Script(object):
      sys.exit(1)
 
     self.command_name = str.lower(sys.argv[1])
+    Logger.logger.info("TEMPO when script execute command_name:{0} ".format(self.command_name));
     self.command_data_file = sys.argv[2]
     self.basedir = sys.argv[3]
     self.stroutfile = sys.argv[4]
@@ -827,13 +828,16 @@ class Script(object):
       pass
     try:
       package_list_str = config['commandParams']['package_list']
+      Logger.info('TEMPO1:install_packages for package_list_str: {0} '.format(package_list_str))
       agent_stack_retry_on_unavailability = bool(config['ambariLevelParams']['agent_stack_retry_on_unavailability'])
       agent_stack_retry_count = int(config['ambariLevelParams']['agent_stack_retry_count'])
       if isinstance(package_list_str, basestring) and len(package_list_str) > 0:
         package_list = json.loads(package_list_str)
         for package in package_list:
+          Logger.info('TEMPO2:install_packages for package: {0} '.format(package))
           if self.check_package_condition(package):
             name = self.format_package_name(package['name'])
+            Logger.info('TEMPO3:install_packages for name: {0} '.format(name))
             # HACK: On Windows, only install ambari-metrics packages using Choco Package Installer
             # TODO: Update this once choco packages for hadoop are created. This is because, service metainfo.xml support
             # <osFamily>any<osFamily> which would cause installation failure on Windows.

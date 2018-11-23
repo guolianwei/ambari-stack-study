@@ -8,6 +8,9 @@ class Master(Script):
     env.set_params(status_params)
     test_varembace=status_params.test_varembace;
     print "test_varembace"+test_varembace
+    config = self.get_config();
+    jdk_location=config['ambariLevelParams']['jdk_location']
+    Logger.info("Tempo: geted jdk_location"+jdk_location)
     pid_file = format("{test_varembace}/gmetad.pid")
     print pid_file
     Logger.info("geted test_varembrace"+pid_file)

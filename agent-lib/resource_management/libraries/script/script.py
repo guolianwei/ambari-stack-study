@@ -286,6 +286,7 @@ class Script(object):
      sys.exit(1)
 
     self.command_name = str.lower(sys.argv[1])
+    
     self.command_data_file = sys.argv[2]
     self.basedir = sys.argv[3]
     self.stroutfile = sys.argv[4]
@@ -300,7 +301,7 @@ class Script(object):
 
     logging_level_str = logging._levelNames[self.logging_level]
     Logger.initialize_logger(__name__, logging_level=logging_level_str)
-
+    Logger.logger.info("TEMPO:"+self.command_name)
     # on windows we need to reload some of env variables manually because there is no default paths for configs(like
     # /etc/something/conf on linux. When this env vars created by one of the Script execution, they can not be updated
     # in agent, so other Script executions will not be able to access to new env variables
@@ -341,7 +342,7 @@ class Script(object):
 
     # Run class method depending on a command type
     try:
-      print self.command_name;
+      print "TEMPO2::"+self.command_name
       method = self.choose_method_to_execute(self.command_name)
       with Environment(self.basedir, tmp_dir=Script.tmp_dir) as env:
         env.config.download_path = Script.tmp_dir
@@ -828,6 +829,7 @@ class Script(object):
       pass
     try:
       package_list_str = config['commandParams']['package_list']
+      Logger.info("TEMPO:package_list_str is {0}".format(package_list_str))
       agent_stack_retry_on_unavailability = bool(config['ambariLevelParams']['agent_stack_retry_on_unavailability'])
       agent_stack_retry_count = int(config['ambariLevelParams']['agent_stack_retry_count'])
       if isinstance(package_list_str, basestring) and len(package_list_str) > 0:

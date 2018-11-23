@@ -44,7 +44,29 @@
             </components>
             <osSpecifics>
                 <osSpecific>
-                    <osFamily>any</osFamily>  <!-- note: use osType rather than osFamily for Ambari 1.5.0 and 1.5.1 -->
+                    <osFamily>amazonlinux2,redhat6,redhat7,suse11</osFamily>
+                    <packages>
+                        <package>
+                            <name>tempo_${stack_version}</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+
+                <osSpecific>
+                    <osFamily>suse12</osFamily>
+                    <packages>
+                        <package>
+                            <name>tempo_${stack_version}</name>
+                        </package>
+                    </packages>
+                </osSpecific>
+                <osSpecific>
+                    <osFamily>debian7,ubuntu12,ubuntu14,ubuntu16</osFamily>
+                    <packages>
+                        <package>
+                            <name>tempo_${stack_version}</name>
+                        </package>
+                    </packages>
                 </osSpecific>
             </osSpecifics>
         </service>

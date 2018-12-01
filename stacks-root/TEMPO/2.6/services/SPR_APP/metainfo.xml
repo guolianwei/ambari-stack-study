@@ -3,18 +3,29 @@
     <schemaVersion>2.0</schemaVersion>
     <services>
         <service>
-            <name>SAMPLESRV</name>
-            <displayName>New Sample Service</displayName>
-            <comment>A New Sample Service</comment>
+            <name>SPR_APP</name>
+            <displayName>Mock</displayName>
+            <comment>>mock service form spring</comment>
             <version>1.0.0</version>
             <components>
                 <component>
-                    <name>SAMPLESRV_MASTER</name>
+                    <name>Mock_MASTER</name>
                     <displayName>Sample Srv Master</displayName>
                     <category>MASTER</category>
                     <cardinality>1</cardinality>
                     <commandScript>
                         <script>scripts/master.py</script>
+                        <scriptType>PYTHON</scriptType>
+                        <timeout>600</timeout>
+                    </commandScript>
+                </component>
+                <component>
+                    <name>Mock_SLAVE</name>
+                    <displayName>Sample Srv Slave</displayName>
+                    <category>SLAVE</category>
+                    <cardinality>1+</cardinality>
+                    <commandScript>
+                        <script>scripts/slave.py</script>
                         <scriptType>PYTHON</scriptType>
                         <timeout>600</timeout>
                     </commandScript>
@@ -25,7 +36,7 @@
                     <osFamily>amazonlinux2,redhat6,redhat7,suse11</osFamily>
                     <packages>
                         <package>
-                            <name>tempo</name>
+                            <name>tempo_${stack_version}</name>
                         </package>
                     </packages>
                 </osSpecific>
@@ -34,7 +45,7 @@
                     <osFamily>suse12</osFamily>
                     <packages>
                         <package>
-                            <name>tempo</name>
+                            <name>tempo_${stack_version}</name>
                         </package>
                     </packages>
                 </osSpecific>
@@ -42,7 +53,7 @@
                     <osFamily>debian7,ubuntu12,ubuntu14,ubuntu16</osFamily>
                     <packages>
                         <package>
-                            <name>tempo</name>
+                            <name>tempo_${stack_version}</name>
                         </package>
                     </packages>
                 </osSpecific>

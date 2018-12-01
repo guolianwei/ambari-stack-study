@@ -191,6 +191,7 @@ class Execute(Resource):
   try_sleep = ResourceArgument(default=0) # seconds
   path = ForcedListArgument(default=[])
   actions = Resource.actions + ["run"]
+  print "".join(actions)
   # TODO: handle how this is logged / tested?
   """
   A one-argument function, which will be executed,

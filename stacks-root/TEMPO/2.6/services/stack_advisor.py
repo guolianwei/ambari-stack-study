@@ -23,13 +23,13 @@ from resource_management.libraries.functions import format
 from resource_management.libraries.functions.version import compare_versions
 
 
-class HDP26StackAdvisor(HDP25StackAdvisor):
+class TEMPO26StackAdvisor(HDP25StackAdvisor):
   def __init__(self):
-      super(HDP26StackAdvisor, self).__init__()
-      self.initialize_logger("HDP26StackAdvisor")
+      super(TEMPO26StackAdvisor, self).__init__()
+      self.initialize_logger("TEMPO26StackAdvisor")
 
   def getServiceConfigurationRecommenderDict(self):
-      parentRecommendConfDict = super(HDP26StackAdvisor, self).getServiceConfigurationRecommenderDict()
+      parentRecommendConfDict = super(TEMPO26StackAdvisor, self).getServiceConfigurationRecommenderDict()
       childRecommendConfDict = {
         "DRUID": self.recommendDruidConfigurations,
         "SUPERSET": self.recommendSupersetConfigurations,
@@ -65,7 +65,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
     :type services dict
     :type hosts dict
     """
-    super(HDP26StackAdvisor, self).recommendSpark2Configurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendSpark2Configurations(configurations, clusterData, services, hosts)
     self.__addZeppelinToLivy2SuperUsers(configurations, services)
 
   def recommendZEPPELINConfigurations(self, configurations, clusterData, services, hosts):
@@ -75,7 +75,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
     :type services dict
     :type hosts dict
     """
-    super(HDP26StackAdvisor, self).recommendZeppelinConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendZeppelinConfigurations(configurations, clusterData, services, hosts)
 
     cluster_env = self.getServicesSiteProperties(services, "cluster-env")
     if cluster_env and "recommendations_full_stack_version" in cluster_env:
@@ -94,7 +94,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
     self.__addZeppelinToLivy2SuperUsers(configurations, services)
 
   def recommendAtlasConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendAtlasConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendAtlasConfigurations(configurations, clusterData, services, hosts)
     self.recommendAtlasConfigurationsForSSO(configurations, clusterData, services, hosts)
 
   def recommendAtlasConfigurationsForSSO(self, configurations, clusterData, services, hosts):
@@ -251,7 +251,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
             putSupersetProperty("SUPERSET_DATABASE_PORT", "")
 
   def recommendYARNConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendYARNConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendYARNConfigurations(configurations, clusterData, services, hosts)
     putYarnSiteProperty = self.putProperty(configurations, "yarn-site", services)
     putYarnEnvProperty = self.putProperty(configurations, "yarn-env", services)
     servicesList = [service["StackServices"]["service_name"] for service in services["services"]]
@@ -451,7 +451,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
       return min_cpu
 
   def getServiceConfigurationValidators(self):
-      parentValidators = super(HDP26StackAdvisor, self).getServiceConfigurationValidators()
+      parentValidators = super(TEMPO26StackAdvisor, self).getServiceConfigurationValidators()
       childValidators = {
           "DRUID": {"druid-env": self.validateDruidEnvConfigurations,
                     "druid-historical": self.validateDruidHistoricalConfigurations,
@@ -527,7 +527,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
         return self.toConfigurationValidationProblems(validationItems, "druid-broker")
 
   def recommendTezConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendTezConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendTezConfigurations(configurations, clusterData, services, hosts)
     putTezProperty = self.putProperty(configurations, "tez-site")
 
     # TEZ JVM options
@@ -550,7 +550,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
                 ": {0}".format(tez_jvm_updated_opts))
 
   def recommendRangerConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendRangerConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendRangerConfigurations(configurations, clusterData, services, hosts)
 
     putRangerUgsyncSite = self.putProperty(configurations, 'ranger-ugsync-site', services)
 
@@ -604,7 +604,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
     return self.toConfigurationValidationProblems(validationItems, "ranger-ugsync-site")
 
   def recommendRangerKMSConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendRangerKMSConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendRangerKMSConfigurations(configurations, clusterData, services, hosts)
     putRangerKmsEnvProperty = self.putProperty(configurations, "kms-env", services)
 
     ranger_kms_ssl_enabled = False
@@ -621,7 +621,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
       putRangerKmsEnvProperty("kms_port", "9292")
 
   def recommendHDFSConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendHDFSConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendHDFSConfigurations(configurations, clusterData, services, hosts)
     if 'hadoop-env' in services['configurations'] and 'hdfs_user' in  services['configurations']['hadoop-env']['properties']:
       hdfs_user = services['configurations']['hadoop-env']['properties']['hdfs_user']
     else:
@@ -642,7 +642,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
       self.logger.info("Not setting HDFS Repo user for Ranger.")
 
   def recommendHIVEConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendHIVEConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendHIVEConfigurations(configurations, clusterData, services, hosts)
     putHiveAtlasHookProperty = self.putProperty(configurations, "hive-atlas-application.properties", services)
     putHiveAtlasHookPropertyAttribute = self.putPropertyAttribute(configurations,"hive-atlas-application.properties")
 
@@ -720,7 +720,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
       return default_host
 
   def recommendHBASEConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendHBASEConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendHBASEConfigurations(configurations, clusterData, services, hosts)
     if 'hbase-env' in services['configurations'] and 'hbase_user' in services['configurations']['hbase-env']['properties']:
       hbase_user = services['configurations']['hbase-env']['properties']['hbase_user']
     else:
@@ -741,7 +741,7 @@ class HDP26StackAdvisor(HDP25StackAdvisor):
       self.logger.info("Not setting Hbase Repo user for Ranger.")
 
   def recommendKAFKAConfigurations(self, configurations, clusterData, services, hosts):
-    super(HDP26StackAdvisor, self).recommendKAFKAConfigurations(configurations, clusterData, services, hosts)
+    super(TEMPO26StackAdvisor, self).recommendKAFKAConfigurations(configurations, clusterData, services, hosts)
     if 'kafka-env' in services['configurations'] and 'kafka_user' in services['configurations']['kafka-env']['properties']:
       kafka_user = services['configurations']['kafka-env']['properties']['kafka_user']
     else:

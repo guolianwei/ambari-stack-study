@@ -348,7 +348,7 @@ class Script(object):
 
         if not self.is_hook():
           self.execute_prefix_function(self.command_name, 'pre', env)
-
+        print ",".join(dir(method))
         method(env)
 
         if not self.is_hook():
